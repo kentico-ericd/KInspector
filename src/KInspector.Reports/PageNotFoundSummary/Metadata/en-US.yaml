@@ -1,0 +1,11 @@
+﻿details:
+  name: Page not found summary
+  shortDescription: Displays all 404 errors from the Event log.
+  longDescription: |
+    Displays all Event log entries with the 'PAGENOTFOUND' event code. If there are 404 errors, there is most likely a broken link on your website. Check the referrer URL and fix the broken links.
+
+    You should avoid broken links on your website as it hurts SEO and generates unnecessary traffic. For complete website analysis, you can use an external tool like www.deadlinkchecker.com.
+terms:
+  good: No 404s found.
+  issuesFound: <totalIssues> <totalIssues|issue|issues> 404s found.
+  notFoundEventsTable: 404 events

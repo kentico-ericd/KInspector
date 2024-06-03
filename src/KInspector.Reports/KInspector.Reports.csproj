@@ -44,6 +44,12 @@
     <None Update="OnlineMarketingTableAnalysis\Scripts\GetScoringRuleCount.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="PageNotFoundSummary\Metadata\en-US.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="PageNotFoundSummary\Scripts\GetPageNotFoundEventLogEntries.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="PageTypeFieldAnalysis\Metadata\en-US.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -225,5 +231,6 @@
 
   <ItemGroup>
     <Folder Include="ContentTreeChildrenAnalysis\Scripts\" />
+    <Folder Include="PageNotFoundSummary\Scripts\" />
   </ItemGroup>
 </Project>
