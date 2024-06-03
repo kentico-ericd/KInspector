@@ -1,0 +1,9 @@
+﻿details:
+  name: Content tree children analysis
+  shortDescription: Displays nodes that have more than 1000 children.
+  longDescription: |
+    Our best practice is to store a maximum of 1000 children per node, otherwise it can negatively affect performance. See [Limitations of using pages for storing content](https://docs.kentico.com/13/developing-websites/defining-website-content-structure#limitations-of-using-pages-for-storing-content).
+terms:
+  good: No issues found.
+  issuesFound: <totalIssues> <totalIssues|issue|issues> found.
+  badNodesTable: Nodes with more than 1,000 children
