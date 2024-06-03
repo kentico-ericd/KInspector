@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	<ProjectReference Include="..\..\src\KInspector.Core\KInspector.Core.csproj" />
     <ProjectReference Include="..\..\src\KInspector.Actions\KInspector.Actions.csproj" />
     <ProjectReference Include="..\..\src\KInspector.Reports\KInspector.Reports.csproj" />
     <ProjectReference Include="..\KInspector.Tests.Common\KInspector.Tests.Common.csproj" />
