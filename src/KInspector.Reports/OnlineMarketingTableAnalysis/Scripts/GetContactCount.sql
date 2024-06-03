@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM OM_Contact

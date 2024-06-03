@@ -1,0 +1,1 @@
+SELECT COUNT(ActivityID) FROM OM_Activity

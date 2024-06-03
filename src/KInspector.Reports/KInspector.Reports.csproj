@@ -23,6 +23,21 @@
     <None Update="OnlineMarketingMacroAnalysis\Scripts\GetManualContactGroupMacroConditions.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="OnlineMarketingTableAnalysis\Metadata\en-US.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OnlineMarketingTableAnalysis\Scripts\GetActivityCount.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OnlineMarketingTableAnalysis\Scripts\GetContactCount.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OnlineMarketingTableAnalysis\Scripts\GetContactGroupCount.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OnlineMarketingTableAnalysis\Scripts\GetScoringRuleCount.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="PageTypeFieldAnalysis\Metadata\en-US.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

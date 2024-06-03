@@ -1,0 +1,16 @@
+﻿details:
+  name: On-line marketing table analysis
+  shortDescription: Checks for large On-line marketing tables.
+  longDescription: |
+    Checks the On-line marketing tables to ensure they are under the recommended limits:
+      * 50 scoring rules
+      * 50 contact groups
+      * 100 million contacts
+      * 1 billion activities
+terms:
+  good: No large tables found, check results for details.
+  issuesFound: <totalIssues> <totalIssues|issue|issues> found, check results for details.
+  activityIssues: <totalActivities> of <maxActivities> activities
+  contactIssues: <totalContacts> of <maxContacts> contacts
+  contactGroupIssues: <totalContactGroups> of <maxContactGroups> contact groups
+  scoringRuleIssues: <totalScoringRules> of <maxScoringRules> scoring rules
