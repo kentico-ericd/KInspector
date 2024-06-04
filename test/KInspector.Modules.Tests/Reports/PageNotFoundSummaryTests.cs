@@ -56,6 +56,7 @@ namespace KInspector.Tests.Common.Reports
             Assert.That(results.TableResults.Count == 0);
         }
 
+        [Test]
         public async Task Should_ReturnWarningResult_When_EventsExist()
         {
             // Arrange
