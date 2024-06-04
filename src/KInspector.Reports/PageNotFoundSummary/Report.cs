@@ -28,11 +28,12 @@ namespace KInspector.Reports.PageNotFoundSummary
             var notFoundEvents = await databaseService.ExecuteSqlFromFile<CmsNotFoundEvent>(Scripts.GetPageNotFoundEventLogEntries);
             if (notFoundEvents.Any())
             {
+                var total404s = notFoundEvents.Sum(e => e.Count);
                 var results = new ModuleResults
                 {
                     Status = ResultsStatus.Warning,
                     Type = ResultsType.TableList,
-                    Summary = Metadata.Terms.IssuesFound?.With(new { totalIssuesFound = notFoundEvents.Count() })
+                    Summary = Metadata.Terms.IssuesFound?.With(new { totalIssues = total404s })
                 };
                 results.TableResults.Add(new TableResult
                 {

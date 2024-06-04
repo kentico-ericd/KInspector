@@ -7,5 +7,5 @@
     You should avoid broken links on your website as it hurts SEO and generates unnecessary traffic. For complete website analysis, you can use an external tool like www.deadlinkchecker.com.
 terms:
   good: No 404s found.
-  issuesFound: <totalIssues> <totalIssues|issue|issues> 404s found.
+  issuesFound: <totalIssues> <totalIssues|404|404s> found.
   notFoundEventsTable: 404 events
