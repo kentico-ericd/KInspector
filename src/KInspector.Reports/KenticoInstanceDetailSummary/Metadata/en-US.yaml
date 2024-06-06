@@ -1,0 +1,26 @@
+﻿details:
+  name: Instance details
+  shortDescription: Shows detailed information about the Kentico instance
+  longDescription: |
+    Global information:
+      * Custom tables
+      * Custom modules
+      * Event log (global)
+      * Metafiles (global)
+      * Users
+
+    Site information:
+      * Assigned cultures
+      * Event log (site)
+      * Assigned users
+      * Node count
+      * Page count
+      * Alternative URLs/aliases
+      * Attachments
+      * Metafiles (site)
+      * Assigned page types
+      * Custom tables
+      * Forms
+      * Assigned custom modules
+terms:
+  information: Check the results tab for information

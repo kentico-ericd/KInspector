@@ -4,6 +4,7 @@
     {
         NoResults,
         StringList,
-        TableList
+        TableList,
+        MarkdownString
     }
 }

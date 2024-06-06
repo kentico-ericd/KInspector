@@ -1,7 +1,8 @@
 ﻿@using KInspector.Core.Constants
 @using KInspector.Core.Models
+@using Markdig
 
-@if (ShowNoResults)
+@if (!Results!.HasResults)
 {
     <span>No results</span>
 }
@@ -28,14 +29,13 @@ else
                 </ul>
             }
             break;
+        case ResultsType.MarkdownString:
+            @(new MarkupString(Markdown.ToHtml(Results!.StringResult ?? string.Empty)))
+            break;
     }
 }
 
 @code {
     [Parameter, EditorRequired]
     public ModuleResults? Results { get; set; }
-
-    private bool ShowNoResults => Results!.Type == ResultsType.NoResults
-        || (Results!.Type == ResultsType.TableList && !Results!.TableResults.Any(t => t.Rows.Any()))
-        || (Results!.Type == ResultsType.StringList && !Results!.StringResults.Any());
 }

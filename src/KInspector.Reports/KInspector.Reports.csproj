@@ -20,6 +20,15 @@
     <None Update="ContentTreeChildrenAnalysis\Scripts\GetNodesWithManyChildren.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="KenticoInstanceDetailSummary\Metadata\en-US.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="KenticoInstanceDetailSummary\Scripts\GetSiteDetailsV12.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="KenticoInstanceDetailSummary\Scripts\GetSiteDetailsV13.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="OnlineMarketingMacroAnalysis\Scripts\GetManualScoreRuleMacroConditions.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -36,5 +36,18 @@ namespace KInspector.Core.Models
         /// The list of strings returned by the execution, if any.
         /// </summary>
         public IList<string> StringResults { get; } = new List<string>();
+
+        /// <summary>
+        /// The string returned by the execution, if any.
+        /// </summary>
+        public string? StringResult { get; set; }
+
+        /// <summary>
+        /// <c>True</c> if the results type contains valid data.
+        /// </summary>
+        public bool HasResults => Type != ResultsType.NoResults
+            || (Type == ResultsType.TableList && TableResults.Any(t => t.Rows.Any()))
+            || (Type == ResultsType.StringList && StringResults.Any())
+            || (Type == ResultsType.MarkdownString && !string.IsNullOrEmpty(StringResult));
     }
 }
