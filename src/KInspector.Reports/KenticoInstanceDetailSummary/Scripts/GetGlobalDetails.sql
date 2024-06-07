@@ -117,15 +117,40 @@ SET @Result += CONCAT('
 - Servers (', (SELECT COUNT(ServerID) FROM CMS_WebfarmServer), ')
 ')
 
-SET @Result += COALESCE((SELECT (STRING_AGG(CAST(CONCAT('  - ', [ServerName], ' _(',
-	CASE
-		WHEN [ServerEnabled] = 1 THEN 'enabled'
-		WHEN [ServerEnabled] = 0 THEN 'disabled'
-		ELSE 'unknown'
-	END
-, ')_') as nvarchar(MAX)), '
-')) FROM [CMS_WebFarmServer])
-, '_(None)_')
+DECLARE @WebFarmServers TABLE (ID int, Name nvarchar(MAX), Ping datetime2, IsEnabled bit)
+INSERT INTO @WebFarmServers (ID, Name, Ping, IsEnabled) SELECT
+	S.ServerID,
+	ServerName,
+	MAX(ServerPing),
+	ServerEnabled
+	FROM [CMS_WebFarmServer] S
+	JOIN [CMS_WebFarmServerMonitoring] SM ON S.ServerID = SM.ServerID
+	GROUP BY [ServerName], S.ServerID, ServerEnabled
+
+DECLARE @ID int
+SELECT @ID = MIN(ID) FROM @WebFarmServers
+WHILE @ID is not null
+BEGIN
+	DECLARE @Name nvarchar(MAX)
+	DECLARE @Ping datetime2
+	DECLARE @Enabled bit
+	SELECT @Name = Name, @Ping = Ping, @Enabled = IsEnabled FROM @WebFarmServers WHERE ID = @ID
+	-- ID, Name
+	SET @Result += CONCAT('  - [', @ID, '] ', @Name, '
+')
+	-- Status
+	SET @Result += CONCAT('    - Status: ', CASE
+			WHEN @Enabled = 1 THEN 'Enabled'
+			WHEN @Enabled = 0 THEN 'Disabled'
+			ELSE 'Unknown'
+		END, '
+')
+	-- Last ping
+	SET @Result += CONCAT('    - Last ping: ', FORMAT(@Ping, 'G'), '
+')
+
+	SELECT @ID = MIN(ID) FROM @WebFarmServers WHERE ID > @ID
+END
 
 -- Users
 

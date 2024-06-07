@@ -3,11 +3,12 @@
   shortDescription: Shows detailed information about the Kentico instance
   longDescription: |
     Global information:
+      * Users  
       * Custom tables
       * Custom modules
       * Event log (global)
       * Metafiles (global)
-      * Users
+      * Web farm servers
 
     Site information:
       * Assigned cultures
@@ -18,7 +19,7 @@
       * Alternative URLs/aliases
       * Attachments
       * Metafiles (site)
-      * Assigned page types
+      * Assigned page types and page count
       * Custom tables
       * Forms
       * Assigned custom modules
