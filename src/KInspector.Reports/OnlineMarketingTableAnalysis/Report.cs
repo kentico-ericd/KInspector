@@ -68,7 +68,7 @@ namespace KInspector.Reports.OnlineMarketingTableAnalysis
                 totalIssues++;
             }
 
-            var totalScoringRules = await databaseService.ExecuteSqlFromFileScalar<int>(Scripts.GetScoringRulesCount);
+            var totalScoringRules = await databaseService.ExecuteSqlFromFileScalar<int>(Scripts.GetScoringRuleCount);
             results.StringResults.Add(Metadata.Terms.ScoringRuleIssues?.With(new
             {
                 totalScoringRules,

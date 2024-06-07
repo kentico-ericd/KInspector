@@ -1537,6 +1537,10 @@ input:checked + .toggle-bg {
   overflow-x: hidden;
 }
 
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+
 .whitespace-nowrap {
   white-space: nowrap;
 }
@@ -2262,6 +2266,10 @@ input:checked + .toggle-bg {
 .after\:content-\[\'\'\]::after {
   --tw-content: '';
   content: var(--tw-content);
+}
+
+.hover\:text-clip:hover {
+  text-overflow: clip;
 }
 
 .hover\:border-gray-300:hover {

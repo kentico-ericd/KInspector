@@ -20,6 +20,12 @@
     <None Update="ContentTreeChildrenAnalysis\Scripts\GetNodesWithManyChildren.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="EventLogErrorSummary\Metadata\en-US.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EventLogErrorSummary\Scripts\GetEventLogErrors.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="InactiveContactSettingsSummary\Metadata\en-US.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -249,6 +255,7 @@
 
   <ItemGroup>
     <Folder Include="ContentTreeChildrenAnalysis\Scripts\" />
+    <Folder Include="EventLogErrorSummary\Scripts\" />
     <Folder Include="InactiveContactSettingsSummary\Scripts\" />
     <Folder Include="PageNotFoundSummary\Scripts\" />
   </ItemGroup>

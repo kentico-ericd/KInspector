@@ -1,0 +1,9 @@
+﻿details:
+  name: Event log error summary
+  shortDescription: Shows all errors from the Event log.
+  longDescription: |
+    Displays all errors, their count, and first/last occurrences from the __Event log__.
+terms:
+  good: No errors found.
+  information: <totalErrors> total <totalErrors|error|errors>.
+  eventLogTableName: Event log errors

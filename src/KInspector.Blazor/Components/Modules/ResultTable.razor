@@ -35,7 +35,7 @@
                             }
                             else
                             {
-                                <span>@value</span>
+                                <span>@Truncate(value, 300)</span>
                             }
                         </td>
                     }
@@ -141,5 +141,21 @@
         IEnumerable<PropertyInfo> properties = row.GetType().GetProperties();
 
         return properties.Select(prop => prop.GetValue(row));
+    }
+
+    private object Truncate(object? value, int maxLength)
+    {
+        if (value is not string)
+        {
+            return value;    
+        }
+
+        var strVal = value.ToString();
+        if (!string.IsNullOrEmpty(strVal) && strVal.Length > maxLength)
+        {
+            return strVal.Substring(0, maxLength) + "...";
+        }
+
+        return strVal;
     }
 }

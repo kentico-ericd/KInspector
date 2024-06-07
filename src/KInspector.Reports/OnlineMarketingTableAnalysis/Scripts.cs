@@ -10,6 +10,6 @@
 
         public static string GetContactGroupCount => $"{BaseDirectory}/{nameof(GetContactGroupCount)}.sql";
 
-        public static string GetScoringRulesCount => $"{BaseDirectory}/{nameof(GetScoringRulesCount)}.sql";
+        public static string GetScoringRuleCount => $"{BaseDirectory}/{nameof(GetScoringRuleCount)}.sql";
     }
 }
