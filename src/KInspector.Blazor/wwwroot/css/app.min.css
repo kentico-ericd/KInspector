@@ -2151,7 +2151,7 @@ input:checked + .toggle-bg {
 .module-card .module-results ul {
   list-style-type: disc;
   list-style-position: inside;
-  margin-left: .5em;
+  padding-left: 40px;
 }
 
 .module-card .module-results .result-table .pagination ul {

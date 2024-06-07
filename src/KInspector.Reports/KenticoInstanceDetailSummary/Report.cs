@@ -39,14 +39,20 @@ namespace KInspector.Reports.KenticoInstanceDetailSummary
             var instanceDetails = instanceService.GetInstanceDetails(instance) ??
                 throw new InvalidOperationException("Unable to retrieve instance details.");
 
+            var resultBuilder = new StringBuilder();
             var results = new ModuleResults
             {
                 Type = ResultsType.MarkdownString,
                 Status = ResultsStatus.Information,
                 Summary = Metadata.Terms.Information
             };
+
+            // Global
+            var globalDetails = await databaseService.ExecuteSqlFromFileScalar<string>(Scripts.GetGlobalDetails);
+            resultBuilder.AppendLine(globalDetails);
+
+            // Loop through sites
             var siteScript = GetSiteScriptFile(instanceDetails);
-            var resultBuilder = new StringBuilder();
             foreach (var site in instanceDetails.Sites)
             {
                 var detail = await databaseService.ExecuteSqlFromFileScalar<string>(siteScript, new { SiteId = site.Id });

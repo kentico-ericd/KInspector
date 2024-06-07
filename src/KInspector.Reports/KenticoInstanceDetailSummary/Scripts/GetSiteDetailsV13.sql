@@ -1,6 +1,6 @@
 DECLARE @SiteName nvarchar(MAX) = (SELECT [SiteName] FROM [CMS_Site] WHERE SiteID = @SiteId)
 DECLARE @SiteStatus nvarchar(20) = (SELECT [SiteStatus] FROM [CMS_Site] WHERE SiteID = @SiteId)
-DECLARE @Result nvarchar(MAX) = CONCAT('## ', @SiteName, ' (', LOWER(@SiteStatus), ')')
+DECLARE @Result nvarchar(MAX) = CONCAT('## <u>', @SiteName, ' (', LOWER(@SiteStatus), ')</u>')
 
 -- Assigned cultures
 
@@ -81,12 +81,25 @@ SET @Result += '
 ### Page types
 '
 
-SET @Result += COALESCE((SELECT STRING_AGG(CAST(CONCAT('- ', [ClassDisplayName], ' _(', [ClassName], ')_') as nvarchar(MAX)), '
-')
-	FROM [CMS_Class] C
+DECLARE @PageTypes TABLE (ClassID int, ClassName nvarchar(MAX))
+INSERT INTO @PageTypes SELECT C.ClassID, ClassName FROM [CMS_Class] C
 	JOIN [CMS_ClassSite] CS ON C.[ClassID] = CS.[ClassID] 
-	WHERE CS.SiteID = @SiteId AND ClassIsDocumentType = 1)
-, '_(None)_')
+	WHERE CS.SiteID = @SiteId AND ClassIsDocumentType = 1
+
+DECLARE @PageTypeID int
+SELECT @PageTypeID = MIN(ClassID) FROM @PageTypes
+WHILE @PageTypeID is not null
+BEGIN
+	DECLARE @Name nvarchar(MAX)
+	SELECT @Name = ClassName FROM @PageTypes WHERE ClassID = @PageTypeID
+	DECLARE @PageCount int = (SELECT COUNT(ClassID)
+		FROM [CMS_Class] JOIN [CMS_Tree] ON [NodeClassID] = [ClassID]
+		WHERE NodeSiteID = @SiteId AND NodeClassID = @PageTypeID)
+	SET @Result += CONCAT('- ', @Name, ' (', @PageCount, ')
+')
+
+	SELECT @PageTypeID = MIN(ClassID) FROM @PageTypes where ClassID > @PageTypeID
+END
 
 -- Custom tables
 

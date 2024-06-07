@@ -23,6 +23,9 @@
     <None Update="KenticoInstanceDetailSummary\Metadata\en-US.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="KenticoInstanceDetailSummary\Scripts\GetGlobalDetails.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="KenticoInstanceDetailSummary\Scripts\GetSiteDetailsV12.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
