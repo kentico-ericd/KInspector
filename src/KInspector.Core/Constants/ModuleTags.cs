@@ -20,5 +20,7 @@
         public const string WebFarms = "Web farms";
         public const string Staging = "Content staging";
         public const string Emails = "Emails";
+        public const string Azure = "Azure";
+        public const string AmazonS3 = "Amazon S3";
     }
 }

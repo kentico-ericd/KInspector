@@ -26,6 +26,12 @@
     <None Update="EventLogErrorSummary\Scripts\GetEventLogErrors.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="ExternalStorageLimitationAnalysis\Metadata\en-US.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ExternalStorageLimitationAnalysis\Scripts\GetMediaFoldersWithMoreThan100Files.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="InactiveContactSettingsSummary\Metadata\en-US.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

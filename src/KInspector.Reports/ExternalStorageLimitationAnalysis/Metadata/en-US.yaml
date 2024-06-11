@@ -1,0 +1,13 @@
+﻿details:
+  name: External storage limitation analysis
+  shortDescription: Checks whether media libraries are following recommendations for external storage.
+  longDescription: |
+    Web sites utilizing external storage (Azure Blob or Amazon S3) should limit media library folder size to a maximum 100 items per folder. If you exceed the limit, alter the structure that allows you to divide the files into multiple folders.
+
+    See [Media library limitations when storing files in an external storage](https://docs.kentico.com/13/configuring-xperience/configuring-the-environment-for-content-editors/configuring-media-libraries#media-library-limitations-when-storing-files-in-an-external-storage).
+terms:
+  summaries:
+    good: No issues found.
+    error: <totalFolders> <totalFolders|folder|folders> with excessive media files.
+  tableTitles:
+    tablesOverLimit: Folders with more than 100 files
