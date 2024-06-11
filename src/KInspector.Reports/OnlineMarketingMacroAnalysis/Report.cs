@@ -33,7 +33,7 @@ namespace KInspector.Reports.OnlineMarketingMacroAnalysis
                 return new ModuleResults
                 {
                     Status = ResultsStatus.Good,
-                    Summary = Metadata.Terms.Good,
+                    Summary = Metadata.Terms.Summaries?.Good,
                     Type = ResultsType.NoResults
                 };
             }
@@ -43,26 +43,26 @@ namespace KInspector.Reports.OnlineMarketingMacroAnalysis
             {
                 Type = ResultsType.TableList,
                 Status = ResultsStatus.Warning,
-                Summary = Metadata.Terms.IssuesFound?.With(new
+                Summary = Metadata.Terms.Summaries?.IssuesFound?.With(new
                 {
                     totalIssues
                 })
             };
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.ContactGroupTable,
+                Name = Metadata.Terms.TableTitles?.ContactGroupTable,
                 Rows = contactGroups
             });
 
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.AutomationTriggerTable,
+                Name = Metadata.Terms.TableTitles?.AutomationTriggerTable,
                 Rows = automationTriggers
             });
 
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.ScoreRuleTable,
+                Name = Metadata.Terms.TableTitles?.ScoreRuleTable,
                 Rows = scoreRules
             });
 

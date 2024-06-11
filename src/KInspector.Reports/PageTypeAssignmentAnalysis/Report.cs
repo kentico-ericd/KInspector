@@ -40,11 +40,11 @@ namespace KInspector.Reports.PageTypeAssignmentAnalysis
                 {
                     Status = ResultsStatus.Warning,
                     Type = ResultsType.TableList,
-                    Summary = Metadata.Terms.WarningSummary?.With(new { unassignedPageTypeCount })
+                    Summary = Metadata.Terms.Summaries?.Warning?.With(new { unassignedPageTypeCount })
                 };
                 results.TableResults.Add(new TableResult
                 {
-                    Name = Metadata.Terms.UnassignedPageTypesTableHeader,
+                    Name = Metadata.Terms.TableTitles?.UnassignedPageTypes,
                     Rows = unassignedPageTypes
                 });
 
@@ -54,7 +54,7 @@ namespace KInspector.Reports.PageTypeAssignmentAnalysis
             return new ModuleResults
             {
                 Status = ResultsStatus.Good,
-                Summary = Metadata.Terms.NoIssuesFound,
+                Summary = Metadata.Terms.Summaries?.NoIssuesFound,
                 Type = ResultsType.NoResults,
             };
         }

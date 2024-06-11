@@ -69,7 +69,7 @@ namespace KInspector.Reports.UserPasswordAnalysis
                 {
                     Type = ResultsType.NoResults,
                     Status = ResultsStatus.Good,
-                    Summary = Metadata.Terms.GoodSummary
+                    Summary = Metadata.Terms.Summaries?.Good
                 };
             }
 
@@ -91,7 +91,7 @@ namespace KInspector.Reports.UserPasswordAnalysis
                 Metadata.Terms.TableTitles?.PlaintextPasswords
                 );
 
-            errorModuleResults.Summary = Metadata.Terms.ErrorSummary?.With(new { emptyCount, plaintextCount });
+            errorModuleResults.Summary = Metadata.Terms.Summaries?.Error?.With(new { emptyCount, plaintextCount });
 
             return errorModuleResults;
         }

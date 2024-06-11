@@ -28,14 +28,14 @@ namespace KInspector.Reports.ContentTreeConsistencyAnalysis
 
         public async override Task<ModuleResults> GetResults()
         {
-            var treeNodeWithBadParentSiteResults = await GetTreeNodeTestResult(Metadata.Terms.TreeNodesWithABadParentSite, Scripts.GetTreeNodeIdsWithBadParentSiteId);
-            var treeNodeWithBadParentNodeResults = await GetTreeNodeTestResult(Metadata.Terms.TreeNodesWithABadParentNode, Scripts.GetTreeNodeIdsWithBadParentNodeId);
-            var treeNodeWithLevelInconsistencyAliasatPathTestResults = await GetTreeNodeTestResult(Metadata.Terms.TreeNodesWithLevelInconsistencyAliasPath, Scripts.GetTreeNodeIdsWithLevelMismatchByAliasPathTest);
-            var treeNodeWithLevelInconsistencyParentChildLevelTestResults = await GetTreeNodeTestResult(Metadata.Terms.TreeNodesWithLevelInconsistencyParent, Scripts.GetTreeNodeIdsWithLevelMismatchByNodeLevelTest);
-            var treeNodeWithMissingDocumentResults = await GetTreeNodeTestResult(Metadata.Terms.TreeNodesWithNoDocumentNode, Scripts.GetTreeNodeIdsWithMissingDocument);
-            var treeNodeWithDuplicateAliasPathResults = await GetTreeNodeTestResult(Metadata.Terms.TreeNodesWithDuplicatedAliasPath, Scripts.GetTreeNodeIdsWithDuplicatedAliasPath);
-            var treeNodeWithPageTypeNotAssignedToSiteResults = await GetTreeNodeTestResult(Metadata.Terms.TreeNodesWithPageTypeNotAssignedToSite, Scripts.GetTreeNodeIdsWithPageTypeNotAssignedToSite);
-            var documentNodesWithMissingTreeNodeResults = await GetDocumentNodeTestResult(Metadata.Terms.DocumentNodesWithNoTreeNode, Scripts.GetDocumentIdsWithMissingTreeNode);
+            var treeNodeWithBadParentSiteResults = await GetTreeNodeTestResult(Metadata.Terms.TableTitles?.TreeNodesWithABadParentSite, Scripts.GetTreeNodeIdsWithBadParentSiteId);
+            var treeNodeWithBadParentNodeResults = await GetTreeNodeTestResult(Metadata.Terms.TableTitles?.TreeNodesWithABadParentNode, Scripts.GetTreeNodeIdsWithBadParentNodeId);
+            var treeNodeWithLevelInconsistencyAliasatPathTestResults = await GetTreeNodeTestResult(Metadata.Terms.TableTitles?.TreeNodesWithLevelInconsistencyAliasPath, Scripts.GetTreeNodeIdsWithLevelMismatchByAliasPathTest);
+            var treeNodeWithLevelInconsistencyParentChildLevelTestResults = await GetTreeNodeTestResult(Metadata.Terms.TableTitles?.TreeNodesWithLevelInconsistencyParent, Scripts.GetTreeNodeIdsWithLevelMismatchByNodeLevelTest);
+            var treeNodeWithMissingDocumentResults = await GetTreeNodeTestResult(Metadata.Terms.TableTitles?.TreeNodesWithNoDocumentNode, Scripts.GetTreeNodeIdsWithMissingDocument);
+            var treeNodeWithDuplicateAliasPathResults = await GetTreeNodeTestResult(Metadata.Terms.TableTitles?.TreeNodesWithDuplicatedAliasPath, Scripts.GetTreeNodeIdsWithDuplicatedAliasPath);
+            var treeNodeWithPageTypeNotAssignedToSiteResults = await GetTreeNodeTestResult(Metadata.Terms.TableTitles?.TreeNodesWithPageTypeNotAssignedToSite, Scripts.GetTreeNodeIdsWithPageTypeNotAssignedToSite);
+            var documentNodesWithMissingTreeNodeResults = await GetDocumentNodeTestResult(Metadata.Terms.TableTitles?.DocumentNodesWithNoTreeNode, Scripts.GetDocumentIdsWithMissingTreeNode);
             var workflowInconsistenciesResults = await GetWorkflowInconsistencyResult();
 
             return CompileResults(
@@ -105,7 +105,7 @@ namespace KInspector.Reports.ContentTreeConsistencyAnalysis
 
                     if (ModuleResults.Status == ResultsStatus.Error)
                     {
-                        summaryBuilder.Append(Metadata.Terms.NameFound?.With(new { name }));
+                        summaryBuilder.Append(Metadata.Terms.Summaries?.NameFound?.With(new { name }));
                         combinedResults.Status = ResultsStatus.Error;
                     }
                 }
@@ -114,7 +114,7 @@ namespace KInspector.Reports.ContentTreeConsistencyAnalysis
             combinedResults.Summary = summaryBuilder.ToString();
             if (combinedResults.Status == ResultsStatus.Good)
             {
-                combinedResults.Summary = Metadata.Terms.NoContentTreeConsistencyIssuesFound;
+                combinedResults.Summary = Metadata.Terms.Summaries?.NoContentTreeConsistencyIssuesFound;
                 combinedResults.Type = ResultsType.NoResults;
             }
 
@@ -194,7 +194,7 @@ namespace KInspector.Reports.ContentTreeConsistencyAnalysis
                 };
                 results.TableResults.Add(new TableResult
                 {
-                    Name = Metadata.Terms.WorkflowInconsistencies,
+                    Name = Metadata.Terms.TableTitles?.WorkflowInconsistencies,
                     Rows = comparisonResults
                 });
 

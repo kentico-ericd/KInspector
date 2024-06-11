@@ -4,11 +4,16 @@ namespace KInspector.Reports.UserPasswordAnalysis.Models
 {
     public class Terms
     {
-        public Term? ErrorSummary { get; set; }
-
-        public Term? GoodSummary { get; set; }
+        public Summaries? Summaries { get; set; }
 
         public TableTitlesTerms? TableTitles { get; set; }
+    }
+
+    public class Summaries
+    {
+        public Term? Error { get; set; }
+
+        public Term? Good { get; set; }
     }
 
     public class TableTitlesTerms

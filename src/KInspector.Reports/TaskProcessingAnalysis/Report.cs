@@ -50,23 +50,23 @@ namespace KInspector.Reports.TaskProcessingAnalysis
             switch (taskTypeCount.Key)
             {
                 case TaskType.IntegrationBusTask:
-                    label = Metadata.Terms.CountIntegrationBusTask?.With(new { count });
+                    label = Metadata.Terms.StringResults?.CountIntegrationBusTask?.With(new { count });
                     break;
 
                 case TaskType.ScheduledTask:
-                    label = Metadata.Terms.CountScheduledTask?.With(new { count });
+                    label = Metadata.Terms.StringResults?.CountScheduledTask?.With(new { count });
                     break;
 
                 case TaskType.SearchTask:
-                    label = Metadata.Terms.CountSearchTask?.With(new { count });
+                    label = Metadata.Terms.StringResults?.CountSearchTask?.With(new { count });
                     break;
 
                 case TaskType.StagingTask:
-                    label = Metadata.Terms.CountStagingTask?.With(new { count });
+                    label = Metadata.Terms.StringResults?.CountStagingTask?.With(new { count });
                     break;
 
                 case TaskType.WebFarmTask:
-                    label = Metadata.Terms.CountWebFarmTask?.With(new { count });
+                    label = Metadata.Terms.StringResults?.CountWebFarmTask?.With(new { count });
                     break;
             }
 
@@ -79,7 +79,7 @@ namespace KInspector.Reports.TaskProcessingAnalysis
             var results = new ModuleResults
             {
                 Status = totalUnprocessedTasks > 0 ? ResultsStatus.Warning : ResultsStatus.Good,
-                Summary = Metadata.Terms.CountUnprocessedTask?.With(new { count = totalUnprocessedTasks }),
+                Summary = Metadata.Terms.Summaries?.CountUnprocessedTask?.With(new { count = totalUnprocessedTasks }),
                 Type = totalUnprocessedTasks > 0 ? ResultsType.StringList : ResultsType.NoResults
             };
             var taskSummaries = taskResults.Where(x => x.Value > 0).Select(AsTaskCountLabel);

@@ -4,12 +4,22 @@ namespace KInspector.Actions.DisableStagingServers.Models
 {
     public class Terms
     {
-        public Term? InvalidOptions { get; internal set; }
+        public Summaries? Summaries { get; set; }
 
-        public Term? TableTitle { get; internal set; }
+        public TableTitles? TableTitles { get; set; }
+    }
 
-        public Term? ListSummary { get; internal set; }
+    public class TableTitles
+    {
+        public Term? StagingServers { get; set; }
+    }
 
-        public Term? ServerDisabled { get; internal set; }
+    public class Summaries
+    {
+        public Term? InvalidOptions { get; set; }
+
+        public Term? ListSummary { get; set; }
+
+        public Term? ServerDisabled { get; set; }
     }
 }

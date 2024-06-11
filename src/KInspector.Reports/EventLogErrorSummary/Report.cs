@@ -30,7 +30,7 @@ namespace KInspector.Reports.EventLogErrorSummary
                 return new ModuleResults
                 {
                     Status = ResultsStatus.Good,
-                    Summary = Metadata.Terms.Good,
+                    Summary = Metadata.Terms.Summaries?.Good,
                     Type = ResultsType.NoResults
                 };
             }
@@ -39,12 +39,12 @@ namespace KInspector.Reports.EventLogErrorSummary
             var results = new ModuleResults
             {
                 Status = ResultsStatus.Warning,
-                Summary = Metadata.Terms.Information?.With(new { totalErrors }),
+                Summary = Metadata.Terms.Summaries?.Information?.With(new { totalErrors }),
                 Type = ResultsType.TableList
             };
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.EventLogTableName,
+                Name = Metadata.Terms.TableTitles?.EventLogTableName,
                 Rows = errors
             });
 

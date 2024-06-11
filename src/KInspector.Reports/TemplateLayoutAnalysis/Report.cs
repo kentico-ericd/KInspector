@@ -40,7 +40,7 @@ namespace KInspector.Reports.TemplateLayoutAnalysis
                 {
                     Type = ResultsType.NoResults,
                     Status = ResultsStatus.Information,
-                    Summary = Metadata.Terms.NoIdenticalPageLayoutsFound
+                    Summary = Metadata.Terms.Summaries?.NoIdenticalPageLayoutsFound
                 };
             }
 
@@ -48,11 +48,11 @@ namespace KInspector.Reports.TemplateLayoutAnalysis
             {
                 Type = ResultsType.TableList,
                 Status = ResultsStatus.Information,
-                Summary = Metadata.Terms.CountIdenticalPageLayoutFound?.With(new { count = countIdenticalPageLayouts })
+                Summary = Metadata.Terms.Summaries?.CountIdenticalPageLayoutFound?.With(new { count = countIdenticalPageLayouts })
             };
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.IdenticalPageLayouts,
+                Name = Metadata.Terms.TableTitles?.IdenticalPageLayouts,
                 Rows = identicalPageLayouts
             });
 

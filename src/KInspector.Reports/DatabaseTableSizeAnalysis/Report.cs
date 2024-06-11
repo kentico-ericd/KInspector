@@ -27,21 +27,18 @@ namespace KInspector.Reports.DatabaseTableSizeAnalysis
             var top25LargestTables = await databaseService.ExecuteSqlFromFile<DatabaseTableSizeResult>(Scripts.GetTop25LargestTables);
             var results = new ModuleResults
             {
+                Type = ResultsType.NoResults,
                 Status = ResultsStatus.Information,
-                Summary = Metadata.Terms.CheckResultsTableForAnyIssues
+                Summary = Metadata.Terms.Summaries?.CheckResultsTableForAnyIssues
             };
             if (top25LargestTables.Any())
             {
                 results.Type = ResultsType.TableList;
                 results.TableResults.Add(new TableResult
                 {
-                    Name = Metadata.Terms.Top25Results,
+                    Name = Metadata.Terms.TableTitles?.Top25Results,
                     Rows = top25LargestTables
                 });
-            }
-            else
-            {
-                results.Type = ResultsType.NoResults;
             }
 
             return results;

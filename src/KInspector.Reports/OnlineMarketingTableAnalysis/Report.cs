@@ -36,7 +36,7 @@ namespace KInspector.Reports.OnlineMarketingTableAnalysis
                 Type = ResultsType.StringList
             };
             var totalActivities = await databaseService.ExecuteSqlFromFileScalar<int>(Scripts.GetActivityCount);
-            results.StringResults.Add(Metadata.Terms.ActivityIssues?.With(new
+            results.StringResults.Add(Metadata.Terms.StringResults?.ActivityIssues?.With(new
             {
                 totalActivities,
                 maxActivities = MAX_ACTIVITIES
@@ -47,7 +47,7 @@ namespace KInspector.Reports.OnlineMarketingTableAnalysis
             }
 
             var totalContacts = await databaseService.ExecuteSqlFromFileScalar<int>(Scripts.GetContactCount);
-            results.StringResults.Add(Metadata.Terms.ContactIssues?.With(new
+            results.StringResults.Add(Metadata.Terms.StringResults?.ContactIssues?.With(new
             {
                 totalContacts,
                 maxContacts = MAX_CONTACTS
@@ -58,7 +58,7 @@ namespace KInspector.Reports.OnlineMarketingTableAnalysis
             }
 
             var totalContactGroups = await databaseService.ExecuteSqlFromFileScalar<int>(Scripts.GetContactGroupCount);
-            results.StringResults.Add(Metadata.Terms.ContactGroupIssues?.With(new
+            results.StringResults.Add(Metadata.Terms.StringResults?.ContactGroupIssues?.With(new
             {
                 totalContactGroups,
                 maxContactGroups = MAX_CONTACTGROUPS
@@ -69,7 +69,7 @@ namespace KInspector.Reports.OnlineMarketingTableAnalysis
             }
 
             var totalScoringRules = await databaseService.ExecuteSqlFromFileScalar<int>(Scripts.GetScoringRuleCount);
-            results.StringResults.Add(Metadata.Terms.ScoringRuleIssues?.With(new
+            results.StringResults.Add(Metadata.Terms.StringResults?.ScoringRuleIssues?.With(new
             {
                 totalScoringRules,
                 maxScoringRules = MAX_SCORINGRULES
@@ -82,12 +82,12 @@ namespace KInspector.Reports.OnlineMarketingTableAnalysis
             if (totalIssues > 0)
             {
                 results.Status = ResultsStatus.Warning;
-                results.Summary = Metadata.Terms.IssuesFound?.With(new { totalIssues });
+                results.Summary = Metadata.Terms.Summaries?.IssuesFound?.With(new { totalIssues });
             }
             else
             {
                 results.Status = ResultsStatus.Good;
-                results.Summary = Metadata.Terms.Good;
+                results.Summary = Metadata.Terms.Summaries?.Good;
             }
 
             return results;

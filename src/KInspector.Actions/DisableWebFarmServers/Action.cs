@@ -34,7 +34,7 @@ namespace KInspector.Actions.DisableWebFarmServers
             await databaseService.ExecuteNonQuery(Scripts.DisableServer, new { ServerID = options?.ServerId });
             var result = await ExecuteListing();
             result.Status = ResultsStatus.Good;
-            result.Summary = Metadata.Terms.ServerDisabled.With(new
+            result.Summary = Metadata.Terms.Summaries?.ServerDisabled?.With(new
             {
                 serverId = options?.ServerId
             });
@@ -55,11 +55,11 @@ namespace KInspector.Actions.DisableWebFarmServers
             {
                 Type = ResultsType.TableList,
                 Status = ResultsStatus.Information,
-                Summary = Metadata.Terms.ListSummary
+                Summary = Metadata.Terms.Summaries?.ListSummary
             };
             result.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.TableTitle,
+                Name = Metadata.Terms.TableTitles?.WebFarmServers,
                 Rows = servers
             });
 
@@ -70,7 +70,7 @@ namespace KInspector.Actions.DisableWebFarmServers
         {
             var result = await ExecuteListing();
             result.Status = ResultsStatus.Error;
-            result.Summary = Metadata.Terms.InvalidOptions;
+            result.Summary = Metadata.Terms.Summaries?.InvalidOptions;
 
             return result;
         }

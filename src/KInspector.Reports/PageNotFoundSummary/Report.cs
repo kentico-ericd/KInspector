@@ -33,11 +33,11 @@ namespace KInspector.Reports.PageNotFoundSummary
                 {
                     Status = ResultsStatus.Warning,
                     Type = ResultsType.TableList,
-                    Summary = Metadata.Terms.IssuesFound?.With(new { totalIssues = total404s })
+                    Summary = Metadata.Terms.Summaries?.IssuesFound?.With(new { totalIssues = total404s })
                 };
                 results.TableResults.Add(new TableResult
                 {
-                    Name = Metadata.Terms.NotFoundEventsTable,
+                    Name = Metadata.Terms.TableTitles?.NotFoundEventsTable,
                     Rows = notFoundEvents
                 });
 
@@ -48,7 +48,7 @@ namespace KInspector.Reports.PageNotFoundSummary
             {
                 Status = ResultsStatus.Good,
                 Type = ResultsType.NoResults,
-                Summary = Metadata.Terms.Good
+                Summary = Metadata.Terms.Summaries?.Good
             };
         }
     }

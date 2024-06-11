@@ -71,16 +71,16 @@ namespace KInspector.Actions.DisableSmtpServers
             {
                 Type = ResultsType.TableList,
                 Status = ResultsStatus.Information,
-                Summary = Metadata.Terms.ListSummary
+                Summary = Metadata.Terms.Summaries?.ListSummary
             };
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.ServersFromSmtpTable,
+                Name = Metadata.Terms.TableTitles?.ServersFromSmtpTable,
                 Rows = serversFromSmtp
             });
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.ServersFromSettingsTable,
+                Name = Metadata.Terms.TableTitles?.ServersFromSettingsTable,
                 Rows = serversFromSettings
             });
 
@@ -91,7 +91,7 @@ namespace KInspector.Actions.DisableSmtpServers
         {
             var result = await ExecuteListing();
             result.Status = ResultsStatus.Error;
-            result.Summary = Metadata.Terms.InvalidOptions;
+            result.Summary = Metadata.Terms.Summaries?.InvalidOptions;
 
             return result;
         }
@@ -101,7 +101,7 @@ namespace KInspector.Actions.DisableSmtpServers
             await databaseService.ExecuteNonQuery(Scripts.DisableSmtpServer, new { ServerID = serverId });
             var result = await ExecuteListing();
             result.Status = ResultsStatus.Good;
-            result.Summary = Metadata.Terms.ServerDisabled?.With(new
+            result.Summary = Metadata.Terms.Summaries?.ServerDisabled?.With(new
             {
                 serverId
             });
@@ -114,7 +114,7 @@ namespace KInspector.Actions.DisableSmtpServers
             await databaseService.ExecuteNonQuery(Scripts.DisableSiteSmtpServer, new { SiteID = siteId });
             var result = await ExecuteListing();
             result.Status = ResultsStatus.Good;
-            result.Summary = Metadata.Terms.SiteSettingDisabled?.With(new
+            result.Summary = Metadata.Terms.Summaries?.SiteSettingDisabled?.With(new
             {
                 siteId
             });

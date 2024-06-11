@@ -13,14 +13,16 @@
       * Document nodes with no tree node
       * Validates that the published data and the data in the **CMS_VersionHistory** tables match
 terms:
-  documentNodesWithNoTreeNode: Document nodes with no tree node
-  nameFound: <name> found.
-  noContentTreeConsistencyIssuesFound: No content tree consistency issues found.
-  treeNodesWithABadParentNode: Tree nodes with a bad parent node
-  treeNodesWithABadParentSite: Tree nodes with a bad parent site
-  treeNodesWithDuplicatedAliasPath: Tree nodes with duplicated alias paths
-  treeNodesWithLevelInconsistencyAliasPath: Tree nodes with level inconsistency (alias path test)
-  treeNodesWithLevelInconsistencyParent: Tree Nodes with level inconsistency (parent/child level test)
-  treeNodesWithNoDocumentNode: Tree nodes with no document node
-  treeNodesWithPageTypeNotAssignedToSite: Tree nodes with page type not assigned to site
-  workflowInconsistencies: Workflow inconsistencies
+  summaries:
+    nameFound: <name> found.
+    noContentTreeConsistencyIssuesFound: No content tree consistency issues found.
+  tableTitles:
+    documentNodesWithNoTreeNode: Document nodes with no tree node
+    treeNodesWithABadParentNode: Tree nodes with a bad parent node
+    treeNodesWithABadParentSite: Tree nodes with a bad parent site
+    treeNodesWithDuplicatedAliasPath: Tree nodes with duplicated alias paths
+    treeNodesWithLevelInconsistencyAliasPath: Tree nodes with level inconsistency (alias path test)
+    treeNodesWithLevelInconsistencyParent: Tree Nodes with level inconsistency (parent/child level test)
+    treeNodesWithNoDocumentNode: Tree nodes with no document node
+    treeNodesWithPageTypeNotAssignedToSite: Tree nodes with page type not assigned to site
+    workflowInconsistencies: Workflow inconsistencies

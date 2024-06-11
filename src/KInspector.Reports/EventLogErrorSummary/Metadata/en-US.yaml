@@ -4,6 +4,8 @@
   longDescription: |
     Displays all errors, their count, and first/last occurrences from the __Event log__.
 terms:
-  good: No errors found.
-  information: <totalErrors> total <totalErrors|error|errors>.
-  eventLogTableName: Event log errors
+  summaries:
+    good: No errors found.
+    information: <totalErrors> total <totalErrors|error|errors>.
+  tableTitles:
+    eventLogTableName: Event log errors

@@ -10,9 +10,11 @@
 
       See [Best practices for on-line marketing performance](https://docs.kentico.com/13/on-line-marketing-features/configuring-and-customizing-your-on-line-marketing-features/best-practices-for-on-line-marketing-performance).
 terms:
-  good: No large tables found, check results for details.
-  issuesFound: <totalIssues> <totalIssues|issue|issues> found, check results for details.
-  activityIssues: <totalActivities> of <maxActivities> activities
-  contactIssues: <totalContacts> of <maxContacts> contacts
-  contactGroupIssues: <totalContactGroups> of <maxContactGroups> contact groups
-  scoringRuleIssues: <totalScoringRules> of <maxScoringRules> scoring rules
+  summaries:
+    good: No large tables found, check results for details.
+    issuesFound: <totalIssues> <totalIssues|issue|issues> found, check results for details.
+  stringResults:
+    activityIssues: <totalActivities> of <maxActivities> activities
+    contactIssues: <totalContacts> of <maxContacts> contacts
+    contactGroupIssues: <totalContactGroups> of <maxContactGroups> contact groups
+    scoringRuleIssues: <totalScoringRules> of <maxScoringRules> scoring rules

@@ -46,14 +46,14 @@ namespace KInspector.Reports.ClassTableValidation
             var tableErrors = tablesWithMissingClass.Count();
             var tableResults = new TableResult()
             {
-                Name = Metadata.Terms.DatabaseTablesWithMissingKenticoClasses,
+                Name = Metadata.Terms.TableTitles?.DatabaseTablesWithMissingKenticoClasses,
                 Rows = tablesWithMissingClass
             };
 
             var classErrors = classesWithMissingTable.Count();
             var classResults = new TableResult()
             {
-                Name = Metadata.Terms.KenticoClassesWithMissingDatabaseTables,
+                Name = Metadata.Terms.TableTitles?.KenticoClassesWithMissingDatabaseTables,
                 Rows = classesWithMissingTable
             };
 
@@ -63,13 +63,13 @@ namespace KInspector.Reports.ClassTableValidation
             {
                 case 0:
                     results.Status = ResultsStatus.Good;
-                    results.Summary = Metadata.Terms.NoIssuesFound;
+                    results.Summary = Metadata.Terms.Summaries?.NoIssuesFound;
                     results.Type = ResultsType.NoResults;
                     break;
 
                 default:
                     results.Status = ResultsStatus.Error;
-                    results.Summary = Metadata.Terms.CountIssueFound?.With(new { count = totalErrors });
+                    results.Summary = Metadata.Terms.Summaries?.CountIssueFound?.With(new { count = totalErrors });
                     results.Type = ResultsType.TableList;
                     results.TableResults.Add(tableResults);
                     results.TableResults.Add(classResults);

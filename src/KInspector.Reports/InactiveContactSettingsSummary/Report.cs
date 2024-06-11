@@ -32,11 +32,11 @@ namespace KInspector.Reports.InactiveContactSettingsSummary
             {
                 Status = ResultsStatus.Information,
                 Type = ResultsType.TableList,
-                Summary = Metadata.Terms.Information
+                Summary = Metadata.Terms.Summaries?.Information
             };
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.SettingsTableName,
+                Name = Metadata.Terms.TableTitles?.SettingsTableName,
                 Rows = data
             });
 

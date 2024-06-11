@@ -32,11 +32,11 @@ namespace KInspector.Reports.ContentTreeChildrenAnalysis
                 {
                     Status = ResultsStatus.Error,
                     Type = ResultsType.TableList,
-                    Summary = Metadata.Terms.IssuesFound?.With(new { totalIssues = nodes.Count() })
+                    Summary = Metadata.Terms.Summaries?.IssuesFound?.With(new { totalIssues = nodes.Count() })
                 };
                 results.TableResults.Add(new TableResult
                 {
-                    Name = Metadata.Terms.BadNodesTable,
+                    Name = Metadata.Terms.TableTitles?.BadNodesTable,
                     Rows = nodes
                 });
 
@@ -47,7 +47,7 @@ namespace KInspector.Reports.ContentTreeChildrenAnalysis
             {
                 Status = ResultsStatus.Good,
                 Type = ResultsType.NoResults,
-                Summary = Metadata.Terms.Good
+                Summary = Metadata.Terms.Summaries?.Good
             };
         }
     }

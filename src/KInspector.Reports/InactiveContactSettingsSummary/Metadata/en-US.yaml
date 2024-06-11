@@ -6,5 +6,7 @@
     
     See [Setting up automatic deletion of contacts](https://docs.kentico.com/13/on-line-marketing-features/configuring-and-customizing-your-on-line-marketing-features/configuring-contacts/setting-up-automatic-deletion-of-contacts) for our recommendations.
 terms:
-  information: Check the results tab to review the settings.
-  settingsTableName: Contact deletion settings
+  summaries:
+    information: Check the results tab to review the settings.
+  tableTitles:
+    settingsTableName: Contact deletion settings

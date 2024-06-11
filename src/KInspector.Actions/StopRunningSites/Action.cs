@@ -34,7 +34,7 @@ namespace KInspector.Actions.StopRunningSites
             await databaseService.ExecuteNonQuery(Scripts.StopSite, new { SiteID = options?.SiteId });
             var result = await ExecuteListing();
             result.Status = ResultsStatus.Good;
-            result.Summary = Metadata.Terms.SiteStopped?.With(new
+            result.Summary = Metadata.Terms.Summaries?.SiteStopped?.With(new
             {
                 siteId = options?.SiteId
             });
@@ -55,11 +55,11 @@ namespace KInspector.Actions.StopRunningSites
             {
                 Type = ResultsType.TableList,
                 Status = ResultsStatus.Information,
-                Summary = Metadata.Terms.ListSummary
+                Summary = Metadata.Terms.Summaries?.ListSummary
             };
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.TableTitle,
+                Name = Metadata.Terms.TableTitles?.Sites,
                 Rows = sites
             });
 
@@ -70,7 +70,7 @@ namespace KInspector.Actions.StopRunningSites
         {
             var result = await ExecuteListing();
             result.Status = ResultsStatus.Error;
-            result.Summary = Metadata.Terms.InvalidOptions;
+            result.Summary = Metadata.Terms.Summaries?.InvalidOptions;
 
             return result;
         }

@@ -35,7 +35,7 @@ namespace KInspector.Actions.ResetCmsUserLogin
             await databaseService.ExecuteNonQuery(Scripts.ResetAndEnableUser, new { UserID = options?.UserId });
             var result = await ExecuteListing();
             result.Status = ResultsStatus.Good;
-            result.Summary = Metadata.Terms.UserReset?.With(new {
+            result.Summary = Metadata.Terms.Summaries?.UserReset?.With(new {
                 userId = options?.UserId
             });
 
@@ -55,11 +55,11 @@ namespace KInspector.Actions.ResetCmsUserLogin
             {
                 Type = ResultsType.TableList,
                 Status = ResultsStatus.Information,
-                Summary = Metadata.Terms.ListSummary
+                Summary = Metadata.Terms.Summaries?.ListSummary
             };
             results.TableResults.Add(new TableResult
             {
-                Name = Metadata.Terms.TableTitle,
+                Name = Metadata.Terms.TableTitles?.GlobalAdmins,
                 Rows = administratorUsers
             });
 
@@ -70,7 +70,7 @@ namespace KInspector.Actions.ResetCmsUserLogin
         {
             var result = await ExecuteListing();
             result.Status = ResultsStatus.Error;
-            result.Summary = Metadata.Terms.InvalidOptions;
+            result.Summary = Metadata.Terms.Summaries?.InvalidOptions;
 
             return result;
         }
