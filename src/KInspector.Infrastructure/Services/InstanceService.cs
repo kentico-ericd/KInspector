@@ -1,7 +1,4 @@
-﻿using Dapper;
-
-using KInspector.Core.Helpers;
-using KInspector.Core.Models;
+﻿using KInspector.Core.Models;
 using KInspector.Core.Services.Interfaces;
 
 namespace KInspector.Infrastructure.Services
@@ -10,13 +7,16 @@ namespace KInspector.Infrastructure.Services
     {
         private readonly IConfigService _configService;
         private readonly IVersionService _versionService;
+        private readonly ISiteService _siteService;
 
         public InstanceService(
             IConfigService configService,
-            IVersionService versionService)
+            IVersionService versionService,
+            ISiteService siteService)
         {
             _configService = configService;
             _versionService = versionService;
+            _siteService = siteService;
         }
 
         public InstanceDetails GetInstanceDetails(Guid instanceGuid)
@@ -33,35 +33,11 @@ namespace KInspector.Infrastructure.Services
             {
                 AdministrationVersion = _versionService.GetKenticoAdministrationVersion(instance),
                 AdministrationDatabaseVersion = _versionService.GetKenticoDatabaseVersion(instance.DatabaseSettings),
-                Sites = GetSites(instance.DatabaseSettings)
+                AllSites = _siteService.GetSites(instance.DatabaseSettings),
+                Site = _siteService.GetSite(instance)
             };
 
             return instanceDetails;
-        }
-
-        private static IList<Site> GetSites(DatabaseSettings databaseSettings)
-        {
-            try
-            {
-                var query = @"
-                    SELECT
-                        SiteId as Id,
-                        SiteName as Name,
-                        SiteGUID as Guid,
-                        SiteDomainName as DomainName,
-                        SitePresentationURL as PresentationUrl,
-                        SiteStatus as Status
-                    FROM CMS_Site";
-
-                var connection = DatabaseHelper.GetSqlConnection(databaseSettings);
-                var sites = connection.Query<Site>(query).ToList();
-
-                return sites;
-            }
-            catch
-            {
-                return Array.Empty<Site>();
-            }
         }
     }
 }

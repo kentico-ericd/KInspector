@@ -16,8 +16,13 @@
         public Version? AdministrationDatabaseVersion { get; set; }
 
         /// <summary>
+        /// The selected Kentico site.
+        /// </summary>
+        public Site? Site { get; set; }
+
+        /// <summary>
         /// The sites contained in the instance's CMS_Site table.
         /// </summary>
-        public IEnumerable<Site> Sites { get; set; } = Enumerable.Empty<Site>();
+        public IEnumerable<Site> AllSites { get; set; } = Enumerable.Empty<Site>();
     }
 }

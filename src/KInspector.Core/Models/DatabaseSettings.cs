@@ -33,6 +33,6 @@
         /// <summary>
         /// If not <c>null</c>, this connection string is used to connect to the database and other properties are ignored.
         /// </summary>
-        public string? AdministrationConnectionString { get; set; }
+        public string? ConnectionString { get; set; }
     }
 }

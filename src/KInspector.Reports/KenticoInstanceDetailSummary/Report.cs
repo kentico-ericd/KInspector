@@ -53,7 +53,7 @@ namespace KInspector.Reports.KenticoInstanceDetailSummary
 
             // Loop through sites
             var siteScript = GetSiteScriptFile(instanceDetails);
-            foreach (var site in instanceDetails.Sites)
+            foreach (var site in instanceDetails.AllSites)
             {
                 var detail = await databaseService.ExecuteSqlFromFileScalar<string>(siteScript, new { SiteId = site.Id });
                 resultBuilder.AppendLine(detail);

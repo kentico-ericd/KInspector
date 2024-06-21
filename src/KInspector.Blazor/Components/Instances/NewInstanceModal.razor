@@ -1,15 +1,18 @@
 ﻿@using System.ComponentModel.DataAnnotations
+@using KInspector.Core.Models
 @using KInspector.Core.Services.Interfaces
 @inject IConfigService configService
 @inject ICmsFileService fileService
+@inject ISiteService siteService
 @inject NavigationManager navigationManager
 
 @{
-    Model!.CMSConnectionString = fileService.GetCMSConnectionString(Model?.AdminPath);
+    Model!.ConnectionString = fileService.GetCMSConnectionString(Model!.AdminPath);
+    var sites = siteService.GetSites(Model!.GetDatabaseSettings());
 }
 
 <div id="new-instance-modal" tabindex="-1" aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
         <EditForm class="mx-auto" Model="Model" OnValidSubmit="Submit" FormName="new-instance-form">
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
@@ -28,67 +31,99 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <div class="p-4 md:p-5 space-y-4">
-                    <DataAnnotationsValidator />
-                    <div class="mb-5 text-sm text-red-500">
-                        <ValidationSummary />
-                    </div>
-                    <div class="mb-5">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <InputText required id="name" @bind-Value="Model!.Name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                    </div>
-                    <div class="mb-5">
-                        <label for="adminPath" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Administration path</label>
-                        <InputText required id="adminPath" @bind-Value="Model!.AdminPath" placeholder="e.g. C:\inetpub\wwwroot\MySite\CMS"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                    </div>
-                    <div class="mb-5">
-                        <label for="adminUrl" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Administration URL</label>
-                        <InputText required id="adminUrl" @bind-Value="Model!.AdminUrl"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                    </div>
-                    @if (string.IsNullOrEmpty(Model!.CMSConnectionString))
-                    {
+                <div class="p-4 md:p-5 space-y-4 divide-y divide-gray-100 dark:divide-gray-600">
+                    <div class="py-4">
+                        <h3 class="mb-4 text-3xl font-bold dark:text-white">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z" />
+                            </svg>
+                            Administration
+                        </h3>
                         <div class="mb-5">
-                            <label for="server" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SQL server</label>
-                            <InputText id="server" @bind-Value="Model!.Server"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <label for="adminPath" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Path</label>
+                            <InputText required id="adminPath" @bind-Value="Model!.AdminPath" placeholder="e.g. C:\inetpub\wwwroot\MySite\CMS"
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         </div>
-                        <div class="mb-5">
-                            <label for="database" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Database name</label>
-                            <InputText id="database" @bind-Value="Model!.Database"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                        </div>
-                        <div class="flex items-start mb-5">
-                            <div class="flex items-center h-5">
-                                <InputCheckbox id="integrated" @bind-Value="Model!.IntegratedSecurity"
-                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
-                            </div>
-                            <label for="integrated" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Integrated security</label>
-                        </div>
-                        @if (!Model.IntegratedSecurity)
+                    </div>
+                    <div class="py-4">
+                        <h3 class="mb-4 text-3xl font-bold dark:text-white">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.37 7.657c2.063.528 2.396 2.806 3.202 3.87 1.07 1.413 2.075 1.228 3.192 2.644 1.805 2.289 1.312 5.705 1.312 6.705M20 15h-1a4 4 0 0 0-4 4v1M8.587 3.992c0 .822.112 1.886 1.515 2.58 1.402.693 2.918.351 2.918 2.334 0 .276 0 2.008 1.972 2.008 2.026.031 2.026-1.678 2.026-2.008 0-.65.527-.9 1.177-.9H20M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                            Live site
+                        </h3>
+                        @if (sites.Any())
                         {
                             <div class="mb-5">
-                                <label for="user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User name</label>
-                                <InputText id="user" @bind-Value="Model!.User"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                            </div>
-                            <div class="mb-5">
-                                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <InputText type="password" id="password" @bind-Value="Model!.Password"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <label for="sites" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select site</label>
+                                <InputSelect id="sites" @bind-Value="Model!.SiteId"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    @if (Model!.SiteId < 1)
+                                    {
+                                        <option selected value="0">(none)</option>
+                                    }
+                                    @foreach (var site in sites)
+                                    {
+                                        <option value="@site.Id">@site.Name</option>
+                                    }
+                                </InputSelect>
                             </div>
                         }
-                    }
-                    else
-                    {
                         <div class="mb-5">
-                            <label for="adminConnectionString" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Administration connection string</label>
-                            <InputText disabled id="adminConnectionString" @bind-Value="Model!.CMSConnectionString"
-                                class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <label for="liveSitePath" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Path</label>
+                            <InputText required id="liveSitePath" @bind-Value="Model!.LiveSitePath" placeholder="e.g. C:\inetpub\wwwroot\CoreSite\publish"
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         </div>
-                    }
+                    </div>
+                    <div class="py-4">
+                        <h3 class="mb-4 text-3xl font-bold dark:text-white">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 6c0 1.657-3.134 3-7 3S5 7.657 5 6m14 0c0-1.657-3.134-3-7-3S5 4.343 5 6m14 0v6M5 6v6m0 0c0 1.657 3.134 3 7 3s7-1.343 7-3M5 12v6c0 1.657 3.134 3 7 3s7-1.343 7-3v-6" />
+                            </svg>
+                            Database
+                        </h3>
+                        @if (string.IsNullOrEmpty(Model!.ConnectionString))
+                        {
+                            <div class="mb-5">
+                                <label for="server" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SQL server</label>
+                                <InputText id="server" @bind-Value="Model!.Server"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            </div>
+                            <div class="mb-5">
+                                <label for="database" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Database name</label>
+                                <InputText id="database" @bind-Value="Model!.Database"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            </div>
+                            <div class="flex items-start mb-5">
+                                <div class="flex items-center h-5">
+                                    <InputCheckbox id="integrated" @bind-Value="Model!.IntegratedSecurity"
+                                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
+                                </div>
+                                <label for="integrated" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Integrated security</label>
+                            </div>
+                            @if (!Model.IntegratedSecurity)
+                            {
+                                <div class="mb-5">
+                                    <label for="user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User name</label>
+                                    <InputText id="user" @bind-Value="Model!.User"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                                <div class="mb-5">
+                                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                    <InputText type="password" id="password" @bind-Value="Model!.Password"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="mb-5">
+                                <label for="connectionString" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Connection string</label>
+                                <InputText disabled id="connectionString" @bind-Value="Model!.ConnectionString"
+                                    class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            </div>
+                        }
+                    </div>
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
@@ -114,17 +149,9 @@
         {
             Guid = Guid.NewGuid(),
             AdministrationPath = Model!.AdminPath,
-            AdministrationUrl = Model!.AdminUrl,
-            Name = Model!.Name,
-            DatabaseSettings = new()
-            {
-                Server = Model!.Server,
-                Database = Model!.Database,
-                IntegratedSecurity = Model!.IntegratedSecurity,
-                User = Model!.User,
-                Password = Model!.Password,
-                AdministrationConnectionString = Model!.CMSConnectionString
-            }
+            LiveSitePath = Model!.LiveSitePath,
+            SiteId = Model!.SiteId,
+            DatabaseSettings = Model!.GetDatabaseSettings()
         });
 
         navigationManager.NavigateTo("/instances", true);
@@ -133,13 +160,13 @@
     public class NewInstance
     {
         [Required]
-        public string? Name { get; set; }
-
-        [Required]
         public string? AdminPath { get; set; }
 
         [Required]
-        public string? AdminUrl { get; set; }
+        public string? LiveSitePath { get; set; }
+
+        [Required]
+        public int SiteId { get; set; }
 
         public string? Server { get; set; }
 
@@ -151,6 +178,16 @@
 
         public string? Password { get; set; }
 
-        public string? CMSConnectionString { get; set; }
+        public string? ConnectionString { get; set; }
+
+        public DatabaseSettings GetDatabaseSettings() => new()
+            {
+                Server = Server,
+                Database = Database,
+                IntegratedSecurity = IntegratedSecurity,
+                User = User,
+                Password = Password,
+                ConnectionString = ConnectionString
+            };
     }
 }

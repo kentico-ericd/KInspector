@@ -21,13 +21,18 @@
         public string? Name { get; set; }
 
         /// <summary>
+        /// The selected Kentico site.
+        /// </summary>
+        public int SiteId { get; set; }
+
+        /// <summary>
         /// The absolute path to the administration website root directory.
         /// </summary>
         public string? AdministrationPath { get; set; }
 
         /// <summary>
-        /// The administration website's URL.
+        /// The absolute path to the lvie site root directory.
         /// </summary>
-        public string? AdministrationUrl { get; set; }
+        public string? LiveSitePath { get; set; }
     }
 }

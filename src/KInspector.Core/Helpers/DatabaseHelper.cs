@@ -8,9 +8,9 @@ namespace KInspector.Core.Helpers
     {
         public static SqlConnection GetSqlConnection(DatabaseSettings databaseSettings)
         {
-            if (!string.IsNullOrEmpty(databaseSettings.AdministrationConnectionString))
+            if (!string.IsNullOrEmpty(databaseSettings.ConnectionString))
             {
-                return new SqlConnection(databaseSettings.AdministrationConnectionString);
+                return new SqlConnection(databaseSettings.ConnectionString);
             }
             else
             {

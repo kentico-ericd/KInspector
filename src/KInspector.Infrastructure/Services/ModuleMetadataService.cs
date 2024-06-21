@@ -58,7 +58,6 @@ namespace KInspector.Core.Helpers
             var instanceDetails = instanceService.GetInstanceDetails(currentInstance);
             var commonData = new
             {
-                instanceUrl = currentInstance?.AdministrationUrl,
                 administrationVersion = instanceDetails.AdministrationVersion,
                 databaseVersion = instanceDetails.AdministrationDatabaseVersion
             };
@@ -103,7 +102,6 @@ namespace KInspector.Core.Helpers
             var instanceDetails = instanceService.GetInstanceDetails(currentInstance);
             var commonData = new
             {
-                instanceUrl = currentInstance?.AdministrationUrl,
                 administrationVersion = instanceDetails.AdministrationVersion,
                 databaseVersion = instanceDetails.AdministrationDatabaseVersion
             };

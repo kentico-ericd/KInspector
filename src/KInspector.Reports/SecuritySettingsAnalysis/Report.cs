@@ -16,7 +16,7 @@ namespace KInspector.Reports.SecuritySettingsAnalysis
     public class Report : AbstractReport<Terms>
     {
         private readonly IDatabaseService databaseService;
-        private readonly IInstanceService instanceService;
+        private readonly ISiteService siteService;
         private readonly ICmsFileService cmsFileService;
         private readonly IConfigService configService;
 
@@ -30,14 +30,14 @@ namespace KInspector.Reports.SecuritySettingsAnalysis
 
         public Report(
             IDatabaseService databaseService,
-            IInstanceService instanceService,
+            ISiteService siteService,
             ICmsFileService cmsFileService,
             IModuleMetadataService moduleMetadataService,
             IConfigService configService
             ) : base(moduleMetadataService)
         {
             this.databaseService = databaseService;
-            this.instanceService = instanceService;
+            this.siteService = siteService;
             this.cmsFileService = cmsFileService;
             this.configService = configService;
         }
@@ -65,9 +65,7 @@ namespace KInspector.Reports.SecuritySettingsAnalysis
             );
 
             var currentInstance = configService.GetCurrentInstance();
-            var sites = instanceService
-                .GetInstanceDetails(currentInstance)?
-                .Sites
+            var sites = siteService.GetSites(currentInstance?.DatabaseSettings)
                 .Append(new Site()
                 {
                     Id = 0,

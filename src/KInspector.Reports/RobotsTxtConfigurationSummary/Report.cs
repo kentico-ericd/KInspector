@@ -13,16 +13,19 @@ namespace KInspector.Reports.RobotsTxtConfigurationSummary
     public class Report : AbstractReport<Terms>
     {
         private readonly IConfigService configService;
+        private readonly IInstanceService instanceService;
         private readonly HttpClient _httpClient = new();
 
         public Report(
             IConfigService configService,
+            IInstanceService instanceService,
             IModuleMetadataService moduleMetadataService,
             HttpClient? httpClient = null
         ) : base(moduleMetadataService)
 
         {
             this.configService = configService;
+            this.instanceService = instanceService;
 
             if (httpClient is not null)
             {
@@ -42,8 +45,10 @@ namespace KInspector.Reports.RobotsTxtConfigurationSummary
 
         public override Task<ModuleResults> GetResults()
         {
-            var adminUrl = configService.GetCurrentInstance()?.AdministrationUrl;
-            if (adminUrl is null)
+            var instance = configService.GetCurrentInstance();
+            var instanceDetails = instanceService.GetInstanceDetails(instance);
+            var liveSiteUrl = instanceDetails.Site?.PresentationUrl;
+            if (liveSiteUrl is null)
             {
                 return Task.FromResult(new ModuleResults
                 {
@@ -53,7 +58,7 @@ namespace KInspector.Reports.RobotsTxtConfigurationSummary
                 });
             }
 
-            var instanceUri = new Uri(adminUrl);
+            var instanceUri = new Uri(liveSiteUrl);
             var testUri = new Uri(instanceUri, Constants.RobotsTxtRelativePath);
 
             return GetUriResults(testUri);

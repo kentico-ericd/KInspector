@@ -14,7 +14,7 @@
         @if (Instance!.Guid.Equals(currentInstance?.Guid))
         {
             <button type="button"
-                @onclick="DisconnectInstance"
+                    @onclick="DisconnectInstance"
                 class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-500 dark:focus:ring-red-800">
                 Disconnect
             </button>
@@ -22,15 +22,15 @@
         else
         {
             <button type="button"
-                @onclick="SetCurrentInstance"
+                    @onclick="SetCurrentInstance"
                 class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
                 Connect
             </button>
         }
         <div class="ps-3">
-            <div class="text-base font-semibold">@Instance!.Name</div>
+            <div class="text-base font-semibold">@details.Site?.Name</div>
             <div class="font-normal text-gray-500">
-                <a href="@Instance!.AdministrationUrl" target="_blank">@Instance!.AdministrationUrl</a>
+                <a href="https://@(details.Site?.DomainName)" target="_blank">https://@(details.Site?.DomainName)</a>
             </div>
         </div>
     </th>
@@ -41,9 +41,9 @@
         @details.AdministrationDatabaseVersion
     </td>
     <td class="px-6 py-4">
-        @if (details.Sites.Any())
+        @if (details.AllSites.Any())
         {
-            <a href="#" @onclick="() => ShowSites = !ShowSites" class="underline">@(details.Sites.Count())</a>
+            <a href="#" @onclick="() => ShowSites = !ShowSites" class="underline">@(details.AllSites.Count())</a>
         }
         else
         {
@@ -52,7 +52,7 @@
     </td>
     <td class="px-6 py-4 text-right">
         <button type="button"
-            @onclick="DeleteInstance"
+                @onclick="DeleteInstance"
             class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
             <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
@@ -65,7 +65,7 @@
 {
     <tr class="bg-gray-200 border-b dark:bg-gray-700 dark:border-gray-600">
         <td class="pl-12 pr-6 py-4" colspan="99">
-            <SiteTable Sites="@details.Sites" />
+            <SiteTable Sites="@details.AllSites" />
         </td>
     </tr>
 }

@@ -15,18 +15,18 @@ namespace KInspector.Reports.TransformationSecurityAnalysis
     public class Report : AbstractReport<Terms>
     {
         private readonly IDatabaseService databaseService;
-        private readonly IInstanceService instanceService;
+        private readonly ISiteService siteService;
         private readonly IConfigService configService;
 
         public Report(
             IDatabaseService databaseService,
             IModuleMetadataService moduleMetadataService,
-            IInstanceService instanceService,
+            ISiteService siteService,
             IConfigService configService
             ) : base(moduleMetadataService)
         {
             this.databaseService = databaseService;
-            this.instanceService = instanceService;
+            this.siteService = siteService;
             this.configService = configService;
         }
 
@@ -50,9 +50,7 @@ namespace KInspector.Reports.TransformationSecurityAnalysis
             var pageDtos = await databaseService.ExecuteSqlFromFile<PageDto>(Scripts.GetPages);
             var documentPageTemplateIds = pageDtos.Select(pageDto => pageDto.DocumentPageTemplateID);
             var pageTemplateDtos = await databaseService.ExecuteSqlFromFile<PageTemplateDto>(Scripts.GetPageTemplates, new { DocumentPageTemplateIDs = documentPageTemplateIds });
-            var sites = instanceService
-                .GetInstanceDetails(configService.GetCurrentInstance())
-                .Sites;
+            var sites = siteService.GetSites(configService.GetCurrentInstance()?.DatabaseSettings);
 
             var pageTemplates = pageTemplateDtos
                 .Select(pageTemplateDto => new PageTemplate(sites, pageDtos, pageTemplateDto))
