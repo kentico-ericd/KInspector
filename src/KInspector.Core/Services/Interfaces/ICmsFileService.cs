@@ -17,11 +17,10 @@ namespace KInspector.Core.Services.Interfaces
         Dictionary<string, string> GetResourceStringsFromResx(string? instanceRoot, string relativeResxFilePath = DefaultKenticoPaths.PrimaryResxFile);
 
         /// <summary>
-        /// Gets the CMSConnectionString from the provided web.config file.
+        /// Gets the CMSConnectionString from the web.config or appsettings.json file.
         /// </summary>
-        /// <param name="instanceRoot">The root of the Kentico administration website.</param>
-        /// <param name="relativeWebConfigFilePath">The relative path of the web.config file within the <paramref name="instanceRoot"/>.</param>
-        string? GetCMSConnectionString(string? instanceRoot, string relativeWebConfigFilePath = DefaultKenticoPaths.WebConfigFile);
+        /// <param name="instanceRoot">The root of the Kentico website.</param>
+        string? GetCMSConnectionString(string? instanceRoot);
 
         /// <summary>
         /// Gets the XML contents of the provided .xml file.

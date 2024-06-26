@@ -85,7 +85,7 @@ namespace KInspector.Reports.ClassTableValidation
         {
             var tablesWithMissingClass = await databaseService.ExecuteSqlFromFile<TableWithNoClass>(Scripts.TablesWithNoClass);
 
-            var tableWhitelist = GetTableWhitelist(instanceDetails.AdministrationDatabaseVersion);
+            var tableWhitelist = GetTableWhitelist(instanceDetails.DatabaseVersion);
             if (tableWhitelist.Count > 0)
             {
                 tablesWithMissingClass = tablesWithMissingClass.Where(t => !tableWhitelist.Contains(t.TableName ?? string.Empty)).ToList();

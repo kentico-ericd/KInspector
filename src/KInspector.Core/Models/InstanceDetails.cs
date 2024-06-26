@@ -11,9 +11,14 @@
         public Version? AdministrationVersion { get; set; }
 
         /// <summary>
-        /// The version of the Kentico DLLs in the administration website.
+        /// The version of the Kentico database.
         /// </summary>
-        public Version? AdministrationDatabaseVersion { get; set; }
+        public Version? DatabaseVersion { get; set; }
+
+        /// <summary>
+        /// The version of the Kentico DLLs in the live site.
+        /// </summary>
+        public Version? LiveSiteVersion { get; set; }
 
         /// <summary>
         /// The selected Kentico site.

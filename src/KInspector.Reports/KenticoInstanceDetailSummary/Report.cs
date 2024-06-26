@@ -64,7 +64,7 @@ namespace KInspector.Reports.KenticoInstanceDetailSummary
         }
 
         private static string GetSiteScriptFile(InstanceDetails instanceDetails) =>
-            (instanceDetails.AdministrationDatabaseVersion?.Major) switch
+            (instanceDetails.DatabaseVersion?.Major) switch
             {
                 12 => Scripts.GetSiteDetailsV12,
                 13 => Scripts.GetSiteDetailsV13,

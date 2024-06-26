@@ -13,14 +13,13 @@ namespace KInspector.Core.Services.Interfaces
         Version? GetKenticoAdministrationVersion(Instance instance);
 
         /// <summary>
-        /// Gets the version of the Kentico DLLs in the administration website, or <c>null</c> if not found.
-        /// </summary>
-        /// <param name="rootPath">The root of the Kentico administration website.</param>
-        Version? GetKenticoAdministrationVersion(string rootPath);
-
-        /// <summary>
         /// Gets the version in the Kentico database's CMS_SettingsKey table, or <c>null</c> if not found.
         /// </summary>
         Version? GetKenticoDatabaseVersion(DatabaseSettings databaseSettings);
+
+        /// <summary>
+        /// Gets the version of the Kentico DLLs in the live website, or <c>null</c> if not found.
+        /// </summary>
+        Version? GetKenticoLiveSiteVersion(Instance instance);
     }
 }

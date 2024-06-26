@@ -11,8 +11,8 @@ namespace KInspector.Infrastructure.Services
 
         private static readonly string getCmsSettingsPath = @"Scripts/GetCmsSettings.sql";
 
-        private const string _administrationDllToCheck = "CMS.DataEngine.dll";
-        private const string _relativeAdministrationDllPath = "bin";
+        private const string _dllToCheck = "CMS.DataEngine.dll";
+        private const string _relativeBinPath = "bin";
         private const string _relativeHotfixFileFolderPath = "App_Data\\Install";
         private const string _hotfixFile = "Hotfix.txt";
 
@@ -21,33 +21,37 @@ namespace KInspector.Infrastructure.Services
             this.databaseService = databaseService;
         }
 
-        public Version? GetKenticoAdministrationVersion(Instance instance)
+        public Version? GetKenticoLiveSiteVersion(Instance instance)
         {
-            return string.IsNullOrEmpty(instance.AdministrationPath) ? null : GetKenticoAdministrationVersion(instance.AdministrationPath);
+            if (!Directory.Exists(instance.LiveSitePath))
+            {
+                return null;
+            }
+
+            var versionInfo = GetKenticoDllVersion(instance.LiveSitePath);
+            if (versionInfo is null)
+            {
+                return null;
+            }
+
+            return new Version($"{versionInfo.FileMajorPart}.{versionInfo.FileMinorPart}.{versionInfo.FileBuildPart}");
         }
 
-        public Version? GetKenticoAdministrationVersion(string rootPath)
+        public Version? GetKenticoAdministrationVersion(Instance instance)
         {
-            if (!Directory.Exists(rootPath))
+            if (!Directory.Exists(instance.AdministrationPath))
             {
                 return null;
             }
 
-            var binDirectory = Path.Combine(rootPath, _relativeAdministrationDllPath);
-            if (!Directory.Exists(binDirectory))
+            var versionInfo = GetKenticoDllVersion(instance.AdministrationPath);
+            if (versionInfo is null)
             {
                 return null;
             }
 
-            var dllFileToCheck = Path.Combine(binDirectory, _administrationDllToCheck);
-            if (!File.Exists(dllFileToCheck))
-            {
-                return null;
-            }
-
-            var fileVersionInfo = FileVersionInfo.GetVersionInfo(dllFileToCheck);
-            var hotfix = "0";
-            var hotfixDirectory = Path.Combine(rootPath, _relativeHotfixFileFolderPath);
+            var hotfix = versionInfo.FileBuildPart.ToString();
+            var hotfixDirectory = Path.Combine(instance.AdministrationPath, _relativeHotfixFileFolderPath);
             if (Directory.Exists(hotfixDirectory))
             {
                 var hotfixFile = Path.Combine(hotfixDirectory, _hotfixFile);
@@ -58,7 +62,7 @@ namespace KInspector.Infrastructure.Services
                 }
             }
 
-            var version = $"{fileVersionInfo.FileMajorPart}.{fileVersionInfo.FileMinorPart}.{hotfix}";
+            var version = $"{versionInfo.FileMajorPart}.{versionInfo.FileMinorPart}.{hotfix}";
 
             return new Version(version);
         }
@@ -69,13 +73,48 @@ namespace KInspector.Infrastructure.Services
             var settingsKeys = databaseService.ExecuteSqlFromFile<string>(getCmsSettingsPath).ConfigureAwait(false).GetAwaiter().GetResult();
             var settingsList = settingsKeys.ToList();
             var version = settingsList[0];
-            var hotfix = settingsList[1];
+            if (version is null)
+            {
+                return null;
+            }
 
-            if (version is null || hotfix is null) {
+            // Xperience by Kentico stores full version in single key
+            if (settingsList.Count == 1)
+            {
+                return new Version(version);
+            }
+
+            var hotfix = settingsList[1];
+            if (hotfix is null)
+            {
                 return null;
             }
 
             return new Version($"{version}.{hotfix}");
+        }
+
+        private static FileVersionInfo? GetKenticoDllVersion(string rootPath)
+        {
+            string dllFileToCheck;
+            var binDirectory = Path.Combine(rootPath, _relativeBinPath);
+            // For published .NET Core projects, the DLLs are in the root directory. For administration and MVC projects, the DLLs are in
+            // the /bin folder.
+            if (Directory.Exists(binDirectory))
+            {
+                dllFileToCheck = Path.Combine(binDirectory, _dllToCheck);
+            }
+            else
+            {
+                dllFileToCheck = Path.Combine(rootPath, _dllToCheck);
+            }
+
+
+            if (!File.Exists(dllFileToCheck))
+            {
+                return null;
+            }
+
+            return FileVersionInfo.GetVersionInfo(dllFileToCheck);
         }
     }
 }

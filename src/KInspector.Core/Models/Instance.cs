@@ -16,11 +16,6 @@
         public Guid? Guid { get; set; }
 
         /// <summary>
-        /// The instance name.
-        /// </summary>
-        public string? Name { get; set; }
-
-        /// <summary>
         /// The selected Kentico site.
         /// </summary>
         public int SiteId { get; set; }

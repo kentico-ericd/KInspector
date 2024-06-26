@@ -53,7 +53,7 @@
 </div>
 
 @code {
-    private int adminDbVersion = 0;
+    private int dbVersion = 0;
 
     [Parameter, EditorRequired]
     public IModule? Module { get; set; }
@@ -67,25 +67,25 @@
 
     private MarkupString ShortDescription => new MarkupString(Markdown.ToHtml(ModuleDetails.ShortDescription ?? string.Empty));
 
-    private bool IsIncompatible => Module!.IncompatibleVersions.Select(v => v.Major).Contains(AdminDatabaseMajorVersion);
+    private bool IsIncompatible => Module!.IncompatibleVersions.Select(v => v.Major).Contains(DatabaseMajorVersion);
 
-    private bool IsUntested => !Module!.CompatibleVersions.Select(v => v.Major).Contains(AdminDatabaseMajorVersion);
+    private bool IsUntested => !Module!.CompatibleVersions.Select(v => v.Major).Contains(DatabaseMajorVersion);
 
     private bool IsRunning => stateContainer.Contains(Module!.Codename);
 
-    private int AdminDatabaseMajorVersion
+    private int DatabaseMajorVersion
     {
         get
         {
-            if (adminDbVersion == 0)
+            if (dbVersion == 0)
             {
                 var currentInstance = configService.GetCurrentInstance();
                 var instanceDetails = instanceService.GetInstanceDetails(currentInstance);
 
-                adminDbVersion = instanceDetails?.AdministrationDatabaseVersion?.Major ?? 0;
+                dbVersion = instanceDetails?.DatabaseVersion?.Major ?? 0;
             }
 
-            return adminDbVersion;
+            return dbVersion;
         }
     }
 

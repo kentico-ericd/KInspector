@@ -29,10 +29,13 @@ namespace KInspector.Infrastructure.Services
         public InstanceDetails GetInstanceDetails(Instance? instance)
         {
             ArgumentNullException.ThrowIfNull(instance);
+
+            var dbVersion = _versionService.GetKenticoDatabaseVersion(instance.DatabaseSettings);
             var instanceDetails = new InstanceDetails
             {
+                LiveSiteVersion = _versionService.GetKenticoLiveSiteVersion(instance),
                 AdministrationVersion = _versionService.GetKenticoAdministrationVersion(instance),
-                AdministrationDatabaseVersion = _versionService.GetKenticoDatabaseVersion(instance.DatabaseSettings),
+                DatabaseVersion = dbVersion,
                 AllSites = _siteService.GetSites(instance.DatabaseSettings),
                 Site = _siteService.GetSite(instance)
             };

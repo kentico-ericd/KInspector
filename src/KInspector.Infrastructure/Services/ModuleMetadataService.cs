@@ -59,7 +59,7 @@ namespace KInspector.Core.Helpers
             var commonData = new
             {
                 administrationVersion = instanceDetails.AdministrationVersion,
-                databaseVersion = instanceDetails.AdministrationDatabaseVersion
+                databaseVersion = instanceDetails.DatabaseVersion
             };
 
             Term? name = details.Name;
@@ -103,7 +103,7 @@ namespace KInspector.Core.Helpers
             var commonData = new
             {
                 administrationVersion = instanceDetails.AdministrationVersion,
-                databaseVersion = instanceDetails.AdministrationDatabaseVersion
+                databaseVersion = instanceDetails.DatabaseVersion
             };
 
             Term? name = moduleMetadata.Details.Name;

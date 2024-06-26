@@ -1,21 +1,31 @@
 ﻿using KInspector.Core.Constants;
 using KInspector.Core.Services.Interfaces;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Xml;
 
 namespace KInspector.Core.Helpers
 {
     public class CmsFileService : ICmsFileService
     {
-        public string? GetCMSConnectionString(string? instanceRoot, string relativeWebConfigFilePath = DefaultKenticoPaths.WebConfigFile)
+        public string? GetCMSConnectionString(string? instanceRoot)
         {
-            var webConfig = GetXmlDocument(instanceRoot, relativeWebConfigFilePath);
-            if (webConfig is null)
+            var appSettings = GetAppSettings(instanceRoot, DefaultKenticoPaths.AppSettingsFile);
+            if (appSettings is not null)
             {
-                return null;
+                return appSettings.GetValue("ConnectionStrings")?.Value<string>("CMSConnectionString");
             }
 
-            return webConfig.SelectSingleNode("/configuration/connectionStrings/add[@name='CMSConnectionString']")?.Attributes?["connectionString"]?.Value;
+            var webConfig = GetXmlDocument(instanceRoot, DefaultKenticoPaths.WebConfigFile);
+            if (webConfig is not null)
+            {
+                return webConfig
+                    .SelectSingleNode("/configuration/connectionStrings/add[@name='CMSConnectionString']")?
+                    .Attributes?["connectionString"]?
+                    .Value;
+            }
+
+            return null;
         }
 
         public Dictionary<string, string> GetResourceStringsFromResx(string? instanceRoot, string relativeResxFilePath = DefaultKenticoPaths.PrimaryResxFile)
@@ -50,6 +60,20 @@ namespace KInspector.Core.Helpers
             {
                 xmlDocument.Load(instanceRoot + relativeFilePath);
                 return xmlDocument;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private static JObject? GetAppSettings(string? instanceRoot, string relativeFilePath)
+        {
+            try
+            {
+                var contents = File.ReadAllText(instanceRoot + relativeFilePath);
+
+                return JsonConvert.DeserializeObject<JObject>(contents);
             }
             catch
             {

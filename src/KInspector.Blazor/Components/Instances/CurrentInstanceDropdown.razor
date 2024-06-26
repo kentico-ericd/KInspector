@@ -18,21 +18,30 @@ else
         class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
         Connected: @InstanceDetails.Site?.Name
     </button>
-    <div id="dropdownInformation" class="instance-dropdown z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600">
-        <div class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-            <a class="text-sm font-light" href="https://@(InstanceDetails.Site?.DomainName)" target="_blank">https://@(InstanceDetails.Site?.DomainName)</a>
-        </div>
+    <div id="dropdownInformation" class="instance-dropdown break-words z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600">
         <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div class="mb-2 underline">Kentico</div>
+            <div class="mb-2 underline">
+                <a href="https://@(InstanceDetails.Site?.DomainName)" target="_blank">Administration</a>
+            </div>
             <ul class="text-left">
                 <li>
-                    Database: v@(InstanceDetails.AdministrationDatabaseVersion)
+                    Kentico version: @(InstanceDetails.AdministrationVersion)
                 </li>
                 <li>
-                    Administration: v@(InstanceDetails.AdministrationVersion)
+                    Path: @Instance.AdministrationPath
+                </li>
+            </ul>
+        </div>
+        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+            <div class="mb-2 underline">
+                <a href="@InstanceDetails.Site?.PresentationUrl" target="_blank">Live site</a>
+            </div
+            <ul class="text-left">
+                <li>
+                    Kentico version: @(InstanceDetails.LiveSiteVersion)
                 </li>
                 <li>
-                    Admin path: @Instance.AdministrationPath
+                    Path: @Instance.LiveSitePath
                 </li>
             </ul>
         </div>
@@ -40,7 +49,10 @@ else
             <div class="mb-2 underline">Database</div>
             <ul class="text-left">
                 <li>
-                    Database: @DatabaseName
+                    Kentico version: @(InstanceDetails.DatabaseVersion)
+                </li>
+                <li>
+                    Database name: @DatabaseName
                 </li>
                 <li>
                     Server: @ServerName
@@ -49,7 +61,7 @@ else
                     Workstation: @sqlWorkstation
                 </li>
                 <li>
-                    Version: @serverVersion
+                    SQL version: @serverVersion
                 </li>
             </ul>
         </div>
