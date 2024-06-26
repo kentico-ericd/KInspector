@@ -15,7 +15,10 @@
     <None Update="Scripts\GetCmsSettings.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Scripts\GetCmsSites.sql">
+    <None Update="Scripts\GetCmsSitesV13.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\GetCmsSitesXbK.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
