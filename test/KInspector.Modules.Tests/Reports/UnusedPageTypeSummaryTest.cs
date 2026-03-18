@@ -1,6 +1,7 @@
 ﻿using KInspector.Core.Constants;
 using KInspector.Reports.UnusedPageTypeSummary;
 using KInspector.Reports.UnusedPageTypeSummary.Models;
+using KInspector.Tests.Common.Helpers;
 
 using NUnit.Framework;
 
@@ -10,13 +11,20 @@ namespace KInspector.Tests.Common.Reports
     [TestFixture(11)]
     [TestFixture(12)]
     [TestFixture(13)]
+    [TestFixture(30)]
+    [TestFixture(31)]
     public class UnusedPageTypeSummaryTest : AbstractModuleTest<Report, Terms>
     {
         private readonly Report _mockReport;
 
         public UnusedPageTypeSummaryTest(int majorVersion) : base(majorVersion)
         {
-            _mockReport = new Report(_mockDatabaseService.Object, _mockModuleMetadataService.Object);
+            var mockInstance = MockInstances.Get(majorVersion) ?? throw new InvalidOperationException($"No instance found with major version {majorVersion}.");
+            var mockInstanceDetails = MockInstanceDetails.Get(majorVersion) ?? throw new InvalidOperationException($"No instance details found with major version {majorVersion}.");
+            var mockInstanceService = MockInstanceServiceHelper.SetupInstanceService(mockInstance, mockInstanceDetails);
+            var mockConfigService = MockConfigServiceHelper.SetupMockConfigService(mockInstance);
+
+            _mockReport = new Report(_mockDatabaseService.Object, mockInstanceService.Object, _mockModuleMetadataService.Object, mockConfigService.Object);
         }
 
         [Test]
