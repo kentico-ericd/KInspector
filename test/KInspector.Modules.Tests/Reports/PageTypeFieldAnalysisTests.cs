@@ -52,6 +52,9 @@ namespace KInspector.Tests.Common.Reports
             _mockDatabaseService
                 .Setup(p => p.ExecuteSqlFromFile<CmsPageTypeField>(Scripts.GetCmsPageTypeFields))
                 .Returns(Task.FromResult(CmsPageTypeFieldsWithoutIssues));
+            _mockDatabaseService
+                .Setup(p => p.ExecuteSqlFromFile<CmsPageTypeField>(Scripts.GetCmsPageTypeFieldsXbK))
+                .Returns(Task.FromResult(CmsPageTypeFieldsWithoutIssues));
 
             // Act
             var results = await mockReport.GetResults();
@@ -66,6 +69,9 @@ namespace KInspector.Tests.Common.Reports
             // Arrange
             _mockDatabaseService
                 .Setup(p => p.ExecuteSqlFromFile<CmsPageTypeField>(Scripts.GetCmsPageTypeFields))
+                .Returns(Task.FromResult(CmsPageTypeFieldsWithIdenticalNamesAndDifferentDataTypes));
+            _mockDatabaseService
+                .Setup(p => p.ExecuteSqlFromFile<CmsPageTypeField>(Scripts.GetCmsPageTypeFieldsXbK))
                 .Returns(Task.FromResult(CmsPageTypeFieldsWithIdenticalNamesAndDifferentDataTypes));
 
             // Act

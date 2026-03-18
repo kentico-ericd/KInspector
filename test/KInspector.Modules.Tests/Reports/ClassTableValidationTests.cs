@@ -34,6 +34,10 @@ namespace KInspector.Tests.Common.Reports
             _mockDatabaseService
                 .Setup(p => p.ExecuteSqlFromFile<ClassWithNoTable>(Scripts.ClassesWithNoTable))
                 .Returns(Task.FromResult(classResults));
+            _mockDatabaseService
+                .Setup(p => p.ExecuteSqlFromFile<ClassWithNoTable>(Scripts.ClassesWithNoTableXbK))
+                .Returns(Task.FromResult(classResults));
+
 
             // Act
             var results = await _mockReport.GetResults();
@@ -62,6 +66,9 @@ namespace KInspector.Tests.Common.Reports
 
             _mockDatabaseService
                 .Setup(p => p.ExecuteSqlFromFile<ClassWithNoTable>(Scripts.ClassesWithNoTable))
+                .Returns(Task.FromResult(classResults.AsEnumerable()));
+            _mockDatabaseService
+                .Setup(p => p.ExecuteSqlFromFile<ClassWithNoTable>(Scripts.ClassesWithNoTableXbK))
                 .Returns(Task.FromResult(classResults.AsEnumerable()));
 
             // Act
@@ -94,6 +101,9 @@ namespace KInspector.Tests.Common.Reports
             var classResults = GetCleanClassResults();
             _mockDatabaseService
                 .Setup(p => p.ExecuteSqlFromFile<ClassWithNoTable>(Scripts.ClassesWithNoTable))
+                .Returns(Task.FromResult(classResults));
+            _mockDatabaseService
+                .Setup(p => p.ExecuteSqlFromFile<ClassWithNoTable>(Scripts.ClassesWithNoTableXbK))
                 .Returns(Task.FromResult(classResults));
 
             // Act

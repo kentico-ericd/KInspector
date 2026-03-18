@@ -75,8 +75,8 @@ namespace KInspector.Tests.Common.Helpers
                 11 => Kentico11,
                 12 => Kentico12,
                 13 => Kentico13,
-                30 => Kentico13,
-                31 => Kentico13,
+                30 => XbK30,
+                31 => XbK31,
                 _ => throw new NotImplementedException(),
             };
 

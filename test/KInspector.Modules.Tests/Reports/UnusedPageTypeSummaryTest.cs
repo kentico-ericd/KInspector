@@ -35,6 +35,9 @@ namespace KInspector.Tests.Common.Reports
             _mockDatabaseService
                 .Setup(p => p.ExecuteSqlFromFile<PageType>(Scripts.GetUnusedPageTypes))
                 .Returns(Task.FromResult(unusedPageTypes));
+            _mockDatabaseService
+                .Setup(p => p.ExecuteSqlFromFile<PageType>(Scripts.GetUnusedPageTypesXbK))
+                .Returns(Task.FromResult(unusedPageTypes));
 
             // Act
             var results = await _mockReport.GetResults();

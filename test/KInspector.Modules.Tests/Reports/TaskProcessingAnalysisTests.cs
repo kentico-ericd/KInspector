@@ -43,6 +43,12 @@ namespace KInspector.Tests.Common.Reports
         [Test]
         public async Task Should_ReturnWarningResult_When_ThereAreUnprocessedIntegrationBusTasks()
         {
+            if (_mockInstanceDetails?.AdministrationDatabaseVersion?.Major > 13)
+            {
+                // Integration bus is not present in XbK
+                return;
+            }
+
             // Arrange
             SetupAllDatabaseQueries(unprocessedIntegrationBusTasks: 1);
 
@@ -71,6 +77,12 @@ namespace KInspector.Tests.Common.Reports
         [Test]
         public async Task Should_ReturnWarningResult_When_ThereAreUnprocessedSearchTasks()
         {
+            if (_mockInstanceDetails?.AdministrationDatabaseVersion?.Major > 13)
+            {
+                // Search tasks not present in XbK
+                return;
+            }
+
             // Arrange
             SetupAllDatabaseQueries(unprocessedSearchTasks: 1);
 
@@ -85,6 +97,12 @@ namespace KInspector.Tests.Common.Reports
         [Test]
         public async Task Should_ReturnWarningResult_When_ThereAreUnprocessedStagingTasks()
         {
+            if (_mockInstanceDetails?.AdministrationDatabaseVersion?.Major > 13)
+            {
+                // Staging tasks are not present in XbK
+                return;
+            }
+
             // Arrange
             SetupAllDatabaseQueries(unprocessedStagingTasks: 1);
 
@@ -131,6 +149,9 @@ namespace KInspector.Tests.Common.Reports
 
             _mockDatabaseService
                 .Setup(p => p.ExecuteSqlFromFileScalar<int>(Scripts.GetCountOfUnprocessedScheduledTasks))
+                .Returns(Task.FromResult(unprocessedScheduledTasks));
+            _mockDatabaseService
+                .Setup(p => p.ExecuteSqlFromFileScalar<int>(Scripts.GetCountOfUnprocessedScheduledTasksXbK))
                 .Returns(Task.FromResult(unprocessedScheduledTasks));
 
             _mockDatabaseService
